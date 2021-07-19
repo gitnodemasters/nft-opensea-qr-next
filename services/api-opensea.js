@@ -18,6 +18,12 @@ const searchAllRedPandaNFTs = async (params) => {
   return await apiAxios.get(url)
 }
 
+const getSingleAsset = async (params) => {
+  const url = `/asset/${params.contract_address}/${params.token_id}`
+  return await apiAxios.get(url)
+}
+
 export {
-  searchAllRedPandaNFTs
+  searchAllRedPandaNFTs,
+  getSingleAsset
 };

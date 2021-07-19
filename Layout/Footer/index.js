@@ -4,8 +4,6 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
-import FooterMenu from './FooterMenu'
-import FooterAccount from './FooterAccount'
 import FooterContact from './FooterContact'
 import FooterTerm from './FooterTerm'
 import { FOOTER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
@@ -50,13 +48,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Grid item sm={12} md={6} lg={3}>
-          <Grid container>
-            {/* <Grid item xs={12} sm={4}>
-              <FooterMenu />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <FooterAccount />
-            </Grid> */}
+          <Grid container>            
             <Grid item xs={12} sm={4}>
               <FooterTerm />
             </Grid>

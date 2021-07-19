@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { Typography } from '@material-ui/core'
@@ -10,8 +10,6 @@ import usePopUp from 'utils/hooks/usePopUp'
 import LINKS from 'utils/constants/links'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import getJSONParse from 'utils/helpers/getJSONParse'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -79,15 +77,10 @@ const NFTCard = ({
   const { setPopUp } = usePopUp();
   const { accountRS } = useSelector(state => state.auth);
 
-  // const assetInfo = useMemo(() => getJSONParse(item.message), [item]);
-  const assetInfo = {
-    image: item.image_url
-  };
-
   const detailNFTHandler = useCallback(() => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
-      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.asset)
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.asset_contract.address + '-' + item.token_id)
     )
   }, [item, router])
 
@@ -114,7 +107,7 @@ const NFTCard = ({
       <div className={classes.infoContainer} onClick={detailNFTHandler}>
         <div className={classes.imageContainer}>
           <ProductContent
-            info={assetInfo}
+            info={item}
             className={classes.image}
           />
         </div>
@@ -122,45 +115,22 @@ const NFTCard = ({
           color='textPrimary'
           className={classes.title}
         >
-          {item.description}
-        </Typography>
-        <Typography
-          color='textSecondary'
-          className={classes.name}
-        >
-          {item.accountRS}
+          {item.name}
         </Typography>
         <Typography
           color='textSecondary'
           className={clsx(classes.description, commonClasses.breakWords)}
         >
-          {assetInfo.description}
+          {item.description}
         </Typography>
         <Typography
           variant='body2'
           color='primary'
           className={classes.price}
         >
-          PRICE: <span>{item.priceNQT / NQT_WEIGHT} JUP</span>
+          PRICE: <span>{item.priceNQT / NQT_WEIGHT} ETH</span>
         </Typography>
-      </div>
-
-      <div className={classes.buttonContainer}>
-        <ContainedButton onClick={bidHandler}>
-          Place a bid
-        </ContainedButton>
-        {accountRS === item.accountRS
-          ? (
-            <ContainedButton onClick={detailNFTHandler}>
-              Edit NFT
-            </ContainedButton>
-          ) : (
-            <ContainedButton onClick={purchaseHandler}>
-              Buy now
-            </ContainedButton>
-          )
-        }
-      </div>
+      </div>      
     </div>
   );
 }

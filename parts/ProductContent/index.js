@@ -11,12 +11,12 @@ const ProductContent = ({
   return info?.type === FILE_TYPES.VIDEO.VALUE
     ? (
       <video muted autoPlay loop controls className={className}>
-        <source src={info?.image} />
+        <source src={info?.image_url} />
       </video>
     ) : (
       <img
         alt='carousel'
-        src={info?.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
+        src={info?.image_url || IMAGE_PLACEHOLDER_IMAGE_PATH}
         className={className}
       />
     )
