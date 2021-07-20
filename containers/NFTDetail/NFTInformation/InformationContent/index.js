@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const InformationContent = ({ good, assetInfo }) => {
   const classes = useStyles();
-  console.log(assetInfo);
+  console.log(good);
 
   return (
     <>
@@ -53,7 +53,7 @@ const InformationContent = ({ good, assetInfo }) => {
 
       <div className={classes.container}>
         <Typography color="textPrimary" className={classes.label}>
-          ASSET LINK INFO
+          Asset Link Info
         </Typography>
         <a href={good.permalink} target='_blank' rel='noreferrer'>
           <Typography color="primary" className={classes.accountName}>
@@ -66,13 +66,29 @@ const InformationContent = ({ good, assetInfo }) => {
           </Typography>
         </a>        
       </div>
-
       <div className={classes.container}>
         <Typography color="textPrimary" className={classes.label}>
-          CONTRACT INFO
+          Creator Info
+        </Typography>
+        <Typography color="primary" className={classes.accountName}>
+          {`CREATOR ADDRESS: ${good.creator_address}`}
+        </Typography>
+        <Typography color="primary" className={classes.accountName}>
+          {`NAME: ${good.creator_name.username}`}
+        </Typography>
+        <Typography color="primary" className={classes.accountName}>
+          {`CREATED DATE: ${good.created_date}`}
+        </Typography>
+      </div>
+      <div className={classes.container}>
+        <Typography color="textPrimary" className={classes.label}>
+          Token Details
         </Typography>
         <Typography color="primary" className={classes.accountName}>
           {`CONTRACT ADDRESS: ${good.address}`}
+        </Typography>
+        <Typography color="primary" className={classes.accountName}>
+          {`TOKEN ID: ${good.token_id}`}
         </Typography>
         <Typography color="primary" className={classes.accountName}>
           {`CONTRACT TYPE: ${good.asset_contract_type}`}

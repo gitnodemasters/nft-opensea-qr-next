@@ -68,12 +68,15 @@ const NFTDetail = () => {
         return;
       }
 
-      const { name, description, asset_contract, image_url, external_link, permalink } = response;
+      const { name, description, asset_contract, creator, image_url, external_link, permalink } = response;
       let info = {
         ...asset_contract,
+        creator_address: creator.address,
+        creator_name: creator.user,
         name: name,
+        token_id: token_id,
         description: description,
-        image_url: image_url,
+        image_url: image_url, 
         external_link: external_link,
         permalink: permalink,
       }

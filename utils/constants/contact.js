@@ -1,4 +1,4 @@
-const SUPPORT_EMAIL = 'info@dronecadets.com';
+const SUPPORT_EMAIL = 'tony@drone-cadets.com';
 const SITE_URL = 'https://dronecadets.io';
 
 export {
