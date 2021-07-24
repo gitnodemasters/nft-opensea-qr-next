@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   accountName: {
     fontSize: 14,
+    lineBreak: 'anywhere'
   },
   accountDescription: {
     fontSize: 14,

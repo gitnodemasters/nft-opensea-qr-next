@@ -14,7 +14,7 @@ apiAxios.interceptors.response.use((response) => {
 });
 
 const searchAllRedPandaNFTs = async (params) => {
-  const url = `/assets?order_direction=desc&offset=${params.first}&limit=${params.last}&asset_contract_addresses=0xEf42c7C855fC915dD1C81cC08101018dd77229E6`
+  const url = `/assets?order_direction=desc&offset=${params.first}&limit=${params.last}&collection=fun-nft-v2`
   return await apiAxios.get(url)
 }
 

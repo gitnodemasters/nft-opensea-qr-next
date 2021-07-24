@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     height: 300,
+    width: 300,
     maxWidth: "100%",
     objectFit: "contain",
     borderRadius: 16,
@@ -42,12 +43,14 @@ const useStyles = makeStyles((theme) => ({
   },
   accountName: {
     fontSize: 14,
+    lineBreak: 'anywhere',
   },
   qrContainer: {
     display: "flex",
   },
   container: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(5),
+    width: '60%'
   },
 }));
 

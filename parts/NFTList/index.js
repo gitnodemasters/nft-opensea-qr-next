@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
     gridGap: theme.spacing(7, 5),
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
