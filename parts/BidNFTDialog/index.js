@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import * as openseaAPI from 'services/api-opensea'
 import MagicDialog from 'components/MagicDialog'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
@@ -49,39 +50,42 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BidNFTDialog = ({
+  item,
   open,
   setOpen,
-  item,
 }) => {
   const classes = useStyles();
   const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
-  const { control, handleSubmit, errors } = useForm({
+  const { control, errors } = useForm({
     resolver: yupResolver(schema)
   });
 
   const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
-      const params = {
-        asset: item.asset,
-        price: Math.round(data.price * NQT_WEIGHT),
-        quantity: 1,
-        secretPhrase: data.passphrase,
-        publicKey: currentUser.publicKey,
-      }
+      // const params = {
+      //   asset: item.asset,
+      //   price: Math.round(data.price * NQT_WEIGHT),
+      //   quantity: 1,
+      //   secretPhrase: data.passphrase,
+      //   publicKey: currentUser.publicKey,
+      // }
 
-      const response = await jupiterAPI.placeBidOrder(params)
-      if (response?.errorCode) {
-        setPopUp({ text: MESSAGES.BID_NFT_ERROR })
-        changeLoadingStatus(false)
-        return;
-      }
+      // const response = await openseaAPI.placeBidOrder(params)
+      // if (response?.errorCode) {
+      //   setPopUp({ text: MESSAGES.BID_NFT_ERROR })
+      //   changeLoadingStatus(false)
+      //   return;
+      // }
 
+      let res = await openseaAPI.makeOffer();
+      console.log("getBalance()----------------", res);
       setPopUp({ text: MESSAGES.BID_NFT_SUCCESS })
       setOpen(false);
+
     } catch (error) {
       console.log(error)
       setPopUp({ text: MESSAGES.BID_NFT_ERROR })
@@ -93,6 +97,10 @@ const BidNFTDialog = ({
     setOpen(false);
   }, [setOpen]);
 
+  const handleSubmit = useCallback(() => {
+    onSubmit()
+  });
+
   return (
     <MagicDialog
       open={open}
@@ -102,14 +110,14 @@ const BidNFTDialog = ({
       <form
         noValidate
         className={classes.form}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
       >
         <Typography color='primary' className={classes.title}>
           {item.description}
         </Typography>
         <Typography variant='h6' color='textPrimary'>
           {item.priceNQT
-            ? `Price: ${item.priceNQT / NQT_WEIGHT} JUP`
+            ? `Price: ${item.priceNQT / NQT_WEIGHT} ETH`
             : 'No Price'
           }
         </Typography>
@@ -118,7 +126,7 @@ const BidNFTDialog = ({
             <Controller
               as={<MagicTextField />}
               name='price'
-              label='Price (JUP)'
+              label='Price (ETH)'
               type='number'
               placeholder='Price'
               inputProps={{ min: 0 }}
@@ -127,7 +135,7 @@ const BidNFTDialog = ({
               defaultValue={item?.priceNQT / NQT_WEIGHT || 0}
             />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}
               type='password'
@@ -138,7 +146,7 @@ const BidNFTDialog = ({
               control={control}
               defaultValue=''
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <ContainedButton
           type='submit'
