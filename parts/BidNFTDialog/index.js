@@ -81,14 +81,14 @@ const BidNFTDialog = ({
       //   return;
       // }
 
-      let res = await openseaAPI.makeOffer();
+      let res = await openseaAPI.placeBidOrder(item);
       console.log("getBalance()----------------", res);
       setPopUp({ text: MESSAGES.BID_NFT_SUCCESS })
       setOpen(false);
 
     } catch (error) {
       console.log(error)
-      setPopUp({ text: MESSAGES.BID_NFT_ERROR })
+      setPopUp({ text: error.message })
     }
     changeLoadingStatus(false)
   }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);

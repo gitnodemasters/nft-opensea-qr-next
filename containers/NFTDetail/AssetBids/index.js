@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import * as openseaAPI from "services/api-opensea";
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import BidNFTDialog from 'parts/BidNFTDialog'
 import TableContainer from 'parts/Table/TableContainer'
@@ -70,7 +71,19 @@ const AssetBids = ({
     //   return;
     // }
     setOpenBidModal(true)
-  }, [accountRS, router, setPopUp, setOpenBidModal])
+
+    // const placeBidOrder = async () => {
+    //   try {
+    //     let res = await openseaAPI.placeBidOrder(good);
+    //   } catch (error) {
+    //     setPopUp({ text: error.message})
+    //     console.log(error)
+    //   }
+      
+    // };
+
+    // placeBidOrder();
+  }, [good, accountRS, router, setPopUp, setOpenBidModal])
 
   return (
     <div className={classes.root}>
